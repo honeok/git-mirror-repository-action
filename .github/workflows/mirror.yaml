@@ -1,0 +1,67 @@
+---
+name: "GitHub Actions Mirror"
+
+on:
+  release:
+    types: [published]
+  push:
+    tags: ["v*"]
+  workflow_dispatch: {}
+
+jobs:
+  mirror2gitlab:
+    name: "Mirror to gitlab"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: "Mirror to gitlab"
+        uses: honeok/git-mirror-repository-action@v1
+        with:
+          REMOTE: git@gitlab.com:${{ github.repository }}.git
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.SYNC_PRIVATE_KEY }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          PUSH_ALL_REFS: false
+          GIT_PUSH_ARGS: "--force --prune"
+
+  mirror2framagit:
+    name: "Mirror to framagit"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: "Mirror to framagit"
+        uses: honeok/git-mirror-repository-action@v1
+        with:
+          REMOTE: git@framagit.org:${{ github.repository }}.git
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.SYNC_PRIVATE_KEY }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          PUSH_ALL_REFS: false
+          GIT_PUSH_ARGS: "--force --prune"
+
+  mirror2codeberg:
+    name: "Mirror to codeberg"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: "Mirror to codeberg"
+        uses: honeok/git-mirror-repository-action@v1
+        with:
+          REMOTE: git@codeberg.org:${{ github.repository }}.git
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.SYNC_PRIVATE_KEY }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          PUSH_ALL_REFS: false
+          GIT_PUSH_ARGS: "--force --prune"
