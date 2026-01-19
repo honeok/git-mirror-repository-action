@@ -7,18 +7,18 @@ set -eE
 git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
 # Default variable values
-GIT_USERNAME="${INPUT_GIT_USERNAME:-${GIT_USERNAME:-"git"}}"
 REMOTE="${INPUT_REMOTE:-"$*"}"
 REMOTE_NAME="${INPUT_REMOTE_NAME:-"mirror"}"
 GIT_SSH_PRIVATE_KEY="$INPUT_GIT_SSH_PRIVATE_KEY"
+GIT_SSH_KNOWN_HOSTS="$INPUT_GIT_SSH_KNOWN_HOSTS"
 GIT_SSH_PUBLIC_KEY="$INPUT_GIT_SSH_PUBLIC_KEY"
+GIT_SSH_NO_VERIFY_HOST="$INPUT_GIT_SSH_NO_VERIFY_HOST"
+GIT_USERNAME="${INPUT_GIT_USERNAME:-${GIT_USERNAME:-"git"}}"
 GIT_REF="$INPUT_GIT_REF"
 GIT_PUSH_ARGS="${INPUT_GIT_PUSH_ARGS:-"--tags --force --prune"}"
-GIT_SSH_NO_VERIFY_HOST="$INPUT_GIT_SSH_NO_VERIFY_HOST"
-GIT_SSH_KNOWN_HOSTS="$INPUT_GIT_SSH_KNOWN_HOSTS"
-HAS_CHECKED_OUT="$(git rev-parse --is-inside-work-tree 2> /dev/null || true)"
-DEBUG="${INPUT_DEBUG:-${DEBUG:-"false"}}"
 DRY_RUN="$INPUT_DRY_RUN"
+DEBUG="${INPUT_DEBUG:-${DEBUG:-"false"}}"
+HAS_CHECKED_OUT="$(git rev-parse --is-inside-work-tree 2> /dev/null || true)"
 
 if [ "$DEBUG" = "true" ]; then
     set -x
