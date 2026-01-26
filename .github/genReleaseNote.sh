@@ -28,5 +28,5 @@ generate_notes() {
     generate_notes "What's Changed" "^feat"
     generate_notes "BUG & Fix" "^fix"
     generate_notes "Maintenance" "^chore\|^docs\|^refactor\|^ci\|^test"
-    echo "**Full Changelog**: https://github.com/$GITHUB_REPOSITORY/compare/$PREVIOUS_VERSION..$CURRENT_VERSION"
+    echo "**Full Changelog**: https://github.com/$GITHUB_REPOSITORY/compare/$PREVIOUS_VERSION...$CURRENT_VERSION"
 } > release.md
